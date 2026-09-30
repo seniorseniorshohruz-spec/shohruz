@@ -1,0 +1,6 @@
+{
+  "name": "BEACH — Luxury Resort & Concierge Booking Platform",
+  "description": "Complete multi-language (UZ, RU, EN) luxury beach resort booking platform with room reservations, marine & beach services, customer portal, reception email & check-in console, and executive admin suite.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

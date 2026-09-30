@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #F9F6F0;
+    color: #0A192F;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  .font-mono, .tabular-nums {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes gentleWave {
+  0%, 100% {
+    transform: translateX(0) translateZ(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-2%) translateZ(0) scaleY(0.94);
+  }
+}
+
+.animate-wave-slow {
+  animation: gentleWave 9s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+}
+
+.animate-wave-delayed {
+  animation: gentleWave 12s cubic-bezier(0.36, 0.45, 0.63, 0.53) -3s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-wave-slow,
+  .animate-wave-delayed {
+    animation: none;
+  }
+}
+

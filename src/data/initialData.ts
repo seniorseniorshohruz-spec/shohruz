@@ -1,0 +1,389 @@
+import {
+  AppNotification,
+  BeachService,
+  Booking,
+  PhysicalRoom,
+  ResortEmail,
+  ResortSettings,
+  Room,
+  UserAccount,
+} from '../types/resort';
+
+export const HERO_IMAGE = '/src/assets/images/beach_resort_hero_1790789835783.jpg';
+export const IMG_ROOM_SUITE = '/src/assets/images/room_luxury_suite_1790789871802.jpg';
+export const IMG_ROOM_VILLA = '/src/assets/images/room_vip_villa_1790789883312.jpg';
+export const IMG_SERVICE_YACHT = '/src/assets/images/service_yacht_kater_1790789894722.jpg';
+export const IMG_SERVICE_TAPCHAN = '/src/assets/images/service_beach_tapchan_1790789905188.jpg';
+
+// Current date in environment is 2026-09-30
+export const TODAY_DATE = '2026-09-30';
+
+export const INITIAL_ROOMS: Room[] = [
+  {
+    id: 'room-standard',
+    category: 'Standard',
+    name: {
+      uz: 'Standard Coastal Xonasi',
+      ru: 'Номер Standard Coastal',
+      en: 'Standard Coastal Room',
+    },
+    description: {
+      uz: 'Yorug‘ va shinam xona, tabiiy eman mebellari, shaxsiy balkon va moviy dengiz shabadasi bilan jihozlangan.',
+      ru: 'Светлый и уютный номер с мебелью из натурального дерева, приватным балконом и морским бризом.',
+      en: 'Sun-lit coastal sanctuary featuring natural oak furnishings, private balcony, and gentle ocean breeze.',
+    },
+    pricePerNight: 180,
+    rating: 4.8,
+    maxGuests: 2,
+    bedType: {
+      uz: '1 ta King-size karavot',
+      ru: '1 кровать King-size',
+      en: '1 King Bed',
+    },
+    sizeSqm: 42,
+    hasWifi: true,
+    hasAc: true,
+    bathroomCount: 1,
+    seaView: {
+      uz: 'Qisman dengiz va bog‘ manzarasi',
+      ru: 'Боковой вид на море и тропический сад',
+      en: 'Partial Sea & Palm Garden View',
+    },
+    available: true,
+    image: IMG_ROOM_SUITE,
+  },
+  {
+    id: 'room-deluxe',
+    category: 'Deluxe',
+    name: {
+      uz: 'Deluxe Oceanfront Suite',
+      ru: 'Люкс Deluxe Oceanfront',
+      en: 'Deluxe Oceanfront Suite',
+    },
+    description: {
+      uz: 'Panoramali oynalar, keng terrasa va to‘g‘ridan-to‘g‘ri moviy okean manzarasi bilan jihozlangan dabdabali xona.',
+      ru: 'Просторный номер с панорамным остеклением, террасой с шезлонгами и прямым видом на бирюзовое море.',
+      en: 'Expansive suite with floor-to-ceiling glass, sun-drenched terrace, and unobstructed turquoise sea views.',
+    },
+    pricePerNight: 290,
+    rating: 4.9,
+    maxGuests: 3,
+    bedType: {
+      uz: '1 ta King-size + Sofa-bed',
+      ru: '1 King-size + диван-кровать',
+      en: '1 King Bed + Lounge Daybed',
+    },
+    sizeSqm: 64,
+    hasWifi: true,
+    hasAc: true,
+    bathroomCount: 1,
+    seaView: {
+      uz: 'To‘liq dengiz manzarasi',
+      ru: 'Прямой панорамный вид на море',
+      en: 'Direct Panoramic Sea View',
+    },
+    available: true,
+    image: IMG_ROOM_SUITE,
+  },
+  {
+    id: 'room-family',
+    category: 'Family',
+    name: {
+      uz: 'Family Lagoon Residence',
+      ru: 'Семейная Резиденция Family Lagoon',
+      en: 'Family Lagoon Residence',
+    },
+    description: {
+      uz: 'Oilaviy dam olish uchun ikki yotoqxonali keng rezidensiya, mehmonxona zonasi va sohildagi lagunaga bevosita chiqish.',
+      ru: 'Двухкомнатная семейная резиденция с просторной гостиной и прямым выходом к пляжной лагуне.',
+      en: 'Two-bedroom coastal residence with separate living parlor and direct step-out access to the calm lagoon.',
+    },
+    pricePerNight: 420,
+    rating: 4.9,
+    maxGuests: 5,
+    bedType: {
+      uz: '1 ta King-size + 2 ta Twin karavot',
+      ru: '1 King-size + 2 кровати Twin',
+      en: '1 King Bed + 2 Twin Beds',
+    },
+    sizeSqm: 98,
+    hasWifi: true,
+    hasAc: true,
+    bathroomCount: 2,
+    seaView: {
+      uz: 'Sohil lagunasi va dengiz manzarasi',
+      ru: 'Вид на лагуну и побережье',
+      en: 'Lagoon & Beachfront View',
+    },
+    available: true,
+    image: IMG_ROOM_VILLA,
+  },
+  {
+    id: 'room-luxury',
+    category: 'Luxury',
+    name: {
+      uz: 'Luxury Horizon Penthouse',
+      ru: 'Пентхаус Luxury Horizon',
+      en: 'Luxury Horizon Penthouse',
+    },
+    description: {
+      uz: 'Travertin marmar hammom, shaxsiy jakuzi terrasa va 180 darajali okean ufqi ko‘rinishiga ega eksklyuziv apartament.',
+      ru: 'Эксклюзивный апартамент с мраморной ванной из травертина, джакузи на террасе и обзором океана на 180°.',
+      en: 'Architectural penthouse featuring travertine spa bath, private outdoor soaking tub, and 180° horizon views.',
+    },
+    pricePerNight: 650,
+    rating: 5.0,
+    maxGuests: 4,
+    bedType: {
+      uz: '2 ta Royal King karavot',
+      ru: '2 кровати Royal King',
+      en: '2 Royal King Beds',
+    },
+    sizeSqm: 135,
+    hasWifi: true,
+    hasAc: true,
+    bathroomCount: 2,
+    seaView: {
+      uz: '180° Panoramali okean manzarasi',
+      ru: '180° Панорамный вид на океан',
+      en: '180° Unobstructed Ocean Horizon',
+    },
+    available: true,
+    image: IMG_ROOM_SUITE,
+  },
+  {
+    id: 'room-vip',
+    category: 'VIP',
+    name: {
+      uz: 'VIP Overwater & Beach Villa',
+      ru: 'Приватная Вилла VIP с Бассейном',
+      en: 'VIP Private Infinity Pool Villa',
+    },
+    description: {
+      uz: 'Shaxsiy infinity-basseyn, oq qumli plyajga individual chiqish va 24/7 shaxsiy batler xizmatiga ega eng oliy toifadagi villa.',
+      ru: 'Флагманская вилла с собственным панорамным бассейном, личным выходом на пляж и круглосуточным батлером.',
+      en: 'Flagship beachfront villa with private infinity plunge pool, direct private beach access, and 24/7 butler service.',
+    },
+    pricePerNight: 1150,
+    rating: 5.0,
+    maxGuests: 6,
+    bedType: {
+      uz: '3 ta Emperor King yotoqxona',
+      ru: '3 спальни Emperor King',
+      en: '3 Emperor King Bedrooms',
+    },
+    sizeSqm: 240,
+    hasWifi: true,
+    hasAc: true,
+    bathroomCount: 3,
+    seaView: {
+      uz: 'Shaxsiy plyaj va cheksiz okean',
+      ru: 'Приватный пляж и открытый океан',
+      en: 'Private Beachfront & Sunset Horizon',
+    },
+    available: true,
+    image: IMG_ROOM_VILLA,
+  },
+];
+
+// All physical room units start AVAILABLE with zero fake bookings
+export const INITIAL_PHYSICAL_ROOMS: PhysicalRoom[] = [
+  { unitNumber: '101', roomTypeId: 'room-standard', category: 'Standard', floor: 1, status: 'AVAILABLE' },
+  { unitNumber: '102', roomTypeId: 'room-standard', category: 'Standard', floor: 1, status: 'AVAILABLE' },
+  { unitNumber: '103', roomTypeId: 'room-standard', category: 'Standard', floor: 1, status: 'AVAILABLE' },
+  { unitNumber: '201', roomTypeId: 'room-deluxe', category: 'Deluxe', floor: 2, status: 'AVAILABLE' },
+  { unitNumber: '202', roomTypeId: 'room-deluxe', category: 'Deluxe', floor: 2, status: 'AVAILABLE' },
+  { unitNumber: '203', roomTypeId: 'room-deluxe', category: 'Deluxe', floor: 2, status: 'AVAILABLE' },
+  { unitNumber: '301', roomTypeId: 'room-family', category: 'Family', floor: 3, status: 'AVAILABLE' },
+  { unitNumber: '302', roomTypeId: 'room-family', category: 'Family', floor: 3, status: 'AVAILABLE' },
+  { unitNumber: '303', roomTypeId: 'room-family', category: 'Family', floor: 3, status: 'AVAILABLE' },
+  { unitNumber: '401', roomTypeId: 'room-luxury', category: 'Luxury', floor: 4, status: 'AVAILABLE' },
+  { unitNumber: '402', roomTypeId: 'room-luxury', category: 'Luxury', floor: 4, status: 'AVAILABLE' },
+  { unitNumber: '501', roomTypeId: 'room-vip', category: 'VIP', floor: 5, status: 'AVAILABLE' },
+  { unitNumber: '502', roomTypeId: 'room-vip', category: 'VIP', floor: 5, status: 'AVAILABLE' },
+];
+
+export const INITIAL_SERVICES: BeachService[] = [
+  {
+    id: 'srv-tapchan',
+    code: 'TAPCHAN',
+    name: {
+      uz: 'Plyaj tapchanlari — Sohil Paviloni',
+      ru: 'Пляжные тапчаны — Приватный Павильон',
+      en: 'Beach Tapchan — Private Coastal Cabana',
+    },
+    description: {
+      uz: 'Oq zig‘ir pardalar, yumshoq yostiqlar, mevali savat va salqin ichimliklar bilan jihozlangan shaxsiy yog‘och tapchan.',
+      ru: 'Приватный деревянный павильон у самой воды с белоснежными шторами, фруктовой корзиной и прохладительными напитками.',
+      en: 'Handcrafted teak beach pavilion with flowing linen drapes, plush cushions, chilled fruit platter, and butler call.',
+    },
+    price: 85,
+    duration: {
+      uz: 'To‘liq kun (09:00 – 20:00)',
+      ru: 'Весь день (09:00 – 20:00)',
+      en: 'Full Day (09:00 – 20:00)',
+    },
+    available: true,
+    image: IMG_SERVICE_TAPCHAN,
+    categoryTag: { uz: 'Sohil dam olish', ru: 'Пляжный лаунж', en: 'Beach Lounge' },
+  },
+  {
+    id: 'srv-kater',
+    code: 'KATER',
+    name: {
+      uz: 'Kater — VIP Tezyurar Yaxta',
+      ru: 'Катер — Скоростная VIP Яхта',
+      en: 'Kater — Private Speedboat Charter',
+    },
+    description: {
+      uz: 'Kapitan boshqaruvidagi dabdabali tezyurar katerda moviy ko‘rfaz bo‘ylab sayohat, cho‘milish va quyosh botishini kuzatish.',
+      ru: 'Морская прогулка на скоростном катере премиум-класса с капитаном, купанием в лагуне и встречей заката.',
+      en: 'Captained luxury motorboat cruise across hidden turquoise coves with snorkeling gear and sunset refreshments.',
+    },
+    price: 240,
+    duration: {
+      uz: '2 soat',
+      ru: '2 часа',
+      en: '2 Hours',
+    },
+    available: true,
+    image: IMG_SERVICE_YACHT,
+    categoryTag: { uz: 'Dengiz kruizi', ru: 'Морской чартер', en: 'Marine Charter' },
+  },
+  {
+    id: 'srv-skuter',
+    code: 'SKUTER',
+    name: {
+      uz: 'Skuter — Suv Gidrotsikli (Jet Ski)',
+      ru: 'Скутер — Скоростной Гидроцикл',
+      en: 'Skuter — High-Performance Jet Ski',
+    },
+    description: {
+      uz: 'Yuqori tezlik va adrenalin sevuvchilar uchun zamonaviy Yamaha suv skuterlari. Xavfsizlik nimchasi va instruktaj kiritilgan.',
+      ru: 'Современные мощные гидроциклы для любителей скорости и драйва на волнах. Инструктаж и жилеты включены.',
+      en: 'Latest-generation Yamaha wave runners for exhilarating coastal rides. Includes safety briefing and life vests.',
+    },
+    price: 95,
+    duration: {
+      uz: '45 daqiqa',
+      ru: '45 минут',
+      en: '45 Minutes',
+    },
+    available: true,
+    image: IMG_SERVICE_YACHT,
+    categoryTag: { uz: 'Ekstremal suv sporti', ru: 'Водный драйв', en: 'Water Thrills' },
+  },
+  {
+    id: 'srv-qayiq',
+    code: 'QAYIQ',
+    name: {
+      uz: 'Kemada sayr — Panoramali Dengiz Qayig‘i',
+      ru: 'Морская прогулка — Прогулочный Корабль',
+      en: 'Boat Cruise — Panoramic Coastal Vessel',
+    },
+    description: {
+      uz: 'Oila va do‘stlar bilan sokin dengiz sayri, qirg‘oq manzaralarini tomosha qilish va fotosessiya uchun panoramali kema.',
+      ru: 'Панорамное судно для неспешных семейных прогулок вдоль живописного побережья и фотосессий.',
+      en: 'Hand-finished coastal cruiser ideal for tranquil bay exploration, family outings, and golden hour photography.',
+    },
+    price: 70,
+    duration: {
+      uz: '1.5 soat',
+      ru: '1.5 часа',
+      en: '1.5 Hours',
+    },
+    available: true,
+    image: IMG_SERVICE_YACHT,
+    categoryTag: { uz: 'Kemada sayr', ru: 'Морская прогулка', en: 'Bay Cruise' },
+  },
+  {
+    id: 'srv-lodka',
+    code: 'LODKA',
+    name: {
+      uz: 'Baliq ovlash va Laguna Qayig‘i',
+      ru: 'Морская рыбалка и Лагунная Лодка',
+      en: 'Sport Fishing & Lagoon Charter',
+    },
+    description: {
+      uz: 'Tajribali yo‘riqchi va barcha professional qarmoq anjomlari bilan sokin ko‘rfazda baliq ovlash sayohati.',
+      ru: 'Морская рыбалка в тихой бирюзовой бухте с профессиональными снастями и опытным гидом.',
+      en: 'Guided coastal fishing excursion across calm turquoise waters with premium rods, tackle, and refreshments.',
+    },
+    price: 110,
+    duration: {
+      uz: '2 soat',
+      ru: '2 часа',
+      en: '2 Hours',
+    },
+    available: true,
+    image: IMG_ROOM_VILLA,
+    categoryTag: { uz: 'Baliq ovlash', ru: 'Рыбалка в лагуне', en: 'Fishing Charter' },
+  },
+  {
+    id: 'srv-plyaj',
+    code: 'PLYAJ_ZONA',
+    name: {
+      uz: 'Plyaj chodirlari — VIP Lounge Zona',
+      ru: 'Пляжные шатры — VIP Шезлонги и Зонты',
+      en: 'Beach Tents — VIP Reserved Sunbeds',
+    },
+    description: {
+      uz: 'Birinchi qatordagi soya chodirlari, yumshoq shezlonglar, muzdek sochiqlar va plyaj ofitsiantining shaxsiy xizmati.',
+      ru: 'Первая линия у моря: премиальные пляжные шатры, мягкие шезлонги, охлажденные полотенца и сервис официанта.',
+      en: 'Front-row shaded beach tents, cushioned sun loungers, chilled eucalyptus towels, and dedicated beachside service.',
+    },
+    price: 55,
+    duration: {
+      uz: 'To‘liq kun',
+      ru: 'Весь день',
+      en: 'Full Day',
+    },
+    available: true,
+    image: IMG_SERVICE_TAPCHAN,
+    categoryTag: { uz: 'Plyaj chodirlari', ru: 'Пляжные шатры', en: 'Beach Tents' },
+  },
+  {
+    id: 'srv-watersports',
+    code: 'SUV_KONGILOCHAR',
+    name: {
+      uz: 'Banan va Suv Attraksionlari Paketi',
+      ru: 'Банан и Водные Развлечения (Парасейлинг)',
+      en: 'Banana Boat & Water Sports Adventure',
+    },
+    description: {
+      uz: 'Oilaviy va do‘stlar davrasida Banan-rafting, dengiz ustida parashyutda uchish (paraseyling) va SUP-bordlar to‘plami.',
+      ru: 'Комплекс морских развлечений: катание на банане, полет на парашюте над морем и SUP-борды.',
+      en: 'Complete group adventure pass including banana boat rides, tandem parasailing flights, and paddleboards.',
+    },
+    price: 130,
+    duration: {
+      uz: '2 soatlik paket',
+      ru: 'Пакет на 2 часа',
+      en: '2-Hour Pass',
+    },
+    available: true,
+    image: IMG_SERVICE_YACHT,
+    categoryTag: { uz: 'Banan & Sarguzasht', ru: 'Водные аттракционы', en: 'Water Adventure' },
+  },
+];
+
+// Production clean state: NO fake customers, NO fake bookings, NO fake emails, NO fake notifications
+export const INITIAL_USERS: UserAccount[] = [];
+export const INITIAL_BOOKINGS: Booking[] = [];
+export const INITIAL_EMAILS: ResortEmail[] = [];
+export const INITIAL_NOTIFICATIONS: AppNotification[] = [];
+
+export const INITIAL_SETTINGS: ResortSettings = {
+  resortName: 'BEACH',
+  supportEmail: 'concierge@beach.uz',
+  supportPhone: '+998 71 200 77 00',
+  address: {
+    uz: 'Ko‘rfaz Sohili ko‘chasi 1-uy, Moviy Laguna Bo‘yi, O‘zbekiston',
+    ru: 'Ул. Побережья Залива 1, Лазурная Лагуна, Узбекистан',
+    en: '1 Emerald Bay Coastline Drive, Azure Lagoon Sanctuary',
+  },
+  checkInTime: '14:00',
+  checkOutTime: '12:00',
+  currency: 'USD ($)',
+  taxPercent: 12,
+};
